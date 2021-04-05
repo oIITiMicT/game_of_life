@@ -4,6 +4,6 @@
 #ifndef CMAKE_TESTAPP_ALLOC_H
 #define CMAKE_TESTAPP_ALLOC_H
 
-elem** get_memory(elem **arr, int n, int m);
+Elem** get_memory(Elem **arr, int length, int width);
 
 #endif

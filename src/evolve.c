@@ -1,30 +1,30 @@
 #include "evolve.h"
 
-int evolve(map* cur) {
-    elem **new;
-    new = get_memory(new, cur->n, cur->m);
-    for (int i = 0; i < cur->n; i++) {
-        for (int j = 0; j < cur->m; j++) {
-            int nieghnors = calc_nieghbors(cur, i, j);
-            new[i][j] = cur->arr[i][j];
-            if (nieghnors == 3) {
-                new[i][j].live = 1;
+int evolve(Map *cur_field) {
+    Elem **new_field;
+    new_field = get_memory(new_field, cur_field->length, cur_field->width);
+    for (int i = 0; i < cur_field->length; i++) {
+        for (int j = 0; j < cur_field->width; j++) {
+            int neighbors = calc_nieghbors(cur_field, i, j);
+            new_field[i][j] = cur_field->arr[i][j];
+            if (neighbors == 3) {
+                new_field[i][j].live = 1;
             }
-            if (nieghnors < 2 || nieghnors > 3) {
-                new[i][j].live = 0;
+            if (neighbors < 2 || neighbors > 3) {
+                new_field[i][j].live = 0;
             }
         }
     }
-    int k = 0; //k = 0 - nothing changed
+    int check = 0; //check = 0 - nothing changed
     // checking for changes in the field
-    for (int i = 0; i < cur->n; i++) {
-        for (int j = 0; j < cur->m; j++) {
-            if (new[i][j].live != cur->arr[i][j].live) {
-                k = 1; //k = 1 - there were some changes on the field
+    for (int i = 0; i < cur_field->length; i++) {
+        for (int j = 0; j < cur_field->width; j++) {
+            if (new_field[i][j].live != cur_field->arr[i][j].live) {
+                check = 1; //check = 1 - there were some changes on the field
                 break;
             }
         }
     }
-    cur->arr = new;
-    return k;
+    cur_field->arr = new_field;
+    return check;
 }

@@ -7,5 +7,5 @@
 
 #ifndef CMAKE_TESTAPP_SOLVER_H
 #define CMAKE_TESTAPP_SOLVER_H
-void solve(map* pole);
+void solve(Map* field);
 #endif

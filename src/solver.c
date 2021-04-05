@@ -1,10 +1,7 @@
 #include "solver.h"
 
-void solve(map* pole) {
-    /*printf("wprowadz nazwe pliku gif (UWAGA! na koncu nazwy powinno byc \".gif\"");
-    char *a;
-    scanf("%s", &a);*/
-    int height = pole->n, weight = pole->m;
+void solve(Map* field) {
+    int height = field->length, weight = field->width;
     ge_GIF *gif = ge_new_gif(
             "ans.gif",  /* file name */
             weight, height,           /* canvas size */
@@ -24,15 +21,15 @@ void solve(map* pole) {
     }
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < weight; j++) {
-            if (pole->arr[i][j].live == 1) gif->frame[i * weight + j] = 0;
+            if (field->arr[i][j].live == 1) gif->frame[i * weight + j] = 0;
         }
     }
-    int day = 0;
+    int cur_day = 0;
     ge_add_frame(gif, 10);
-    while (day < 500) {
-        int now = evolve(pole);
+    while (cur_day < 500) {
+        int now = evolve(field);
         if (!now) break;
-        day++;
+        cur_day++;
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < weight; j++) {
@@ -41,7 +38,7 @@ void solve(map* pole) {
         }
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < weight; j++) {
-                if (pole->arr[i][j].live == 1) gif->frame[i * weight + j] = 0;
+                if (field->arr[i][j].live == 1) gif->frame[i * weight + j] = 0;
             }
         }
         ge_add_frame(gif, 10);

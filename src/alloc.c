@@ -1,9 +1,9 @@
 #include "alloc.h"
 
-elem** get_memory(elem **arr, int n, int m) {
-    arr = (elem**)malloc(sizeof(elem*) * n);
-    for (int i = 0; i < n; i++) {
-        arr[i] = (elem*)malloc(sizeof(elem*) * m);
+Elem** get_memory(Elem **arr, int length, int width) {
+    arr = (Elem**)malloc(sizeof(Elem*) * length);
+    for (int i = 0; i < length; i++) {
+        arr[i] = (Elem*)malloc(sizeof(Elem*) * width);
     }
     return arr;
 }

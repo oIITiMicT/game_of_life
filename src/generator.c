@@ -1,17 +1,14 @@
 #include "generator.h"
 
-void generate(map* cur) {
-    //generate a field of size (0; 50] x (0x50] and fill it with 0 and 1 with a chance of 0 - 75% 1 - 25%
-    int x = rand();
-    cur->n = x % 50 + 1;
-    x = rand();
-    cur->m = x % 50 + 1;
-    cur->arr = get_memory(cur->arr, cur->n, cur->m);
-    for (int i = 0 ; i < cur->n; i++) {
-        for (int j = 0; j < cur->m; j++) {
-            x = rand();
-            x %= 4;
-            cur->arr[i][j].live = x == 0 ? 1 : 0;
+void generate(Map* cur_field) {
+    int minimum_size = 10, maximum_size = 100;
+    int generation_divider = 4; //generation chance is determined by dividing 100% by generation_divider
+    if (!cur_field->length) cur_field->length = minimum_size + rand() % (maximum_size - minimum_size + 1);
+    if (!cur_field->width) cur_field->width = minimum_size + rand() % (maximum_size - minimum_size + 1);
+    cur_field->arr = get_memory(cur_field->arr, cur_field->length, cur_field->width);
+    for (int i = 0 ; i < cur_field->length; i++) {
+        for (int j = 0; j < cur_field->width; j++) {
+            cur_field->arr[i][j].live = rand() % generation_divider == 0 ? 1 : 0;
         }
     }
 }

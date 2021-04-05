@@ -1,27 +1,40 @@
 #include "game.h"
 
 void game() {
-    map pole;
-    printf("wprowadz:\n1 - jezeli chcesz wprowadzic dane z klawiatury\n2 - jezeli chcesz zgenerowac pole\nwprowadz: ");
+    Map field;
+    printf("enter:\n1 - if you want to enter data from the keyboard\n2 - if you want to generate a field\nenter: ");
     int operation;
     scanf("%d", &operation);
     if (operation == 1) {
-        printf("wprowadz liczbe wierszy i kolumn: \n");
-        scanf("%d%d", &pole.n, &pole.m);
-        printf("wprowadz pozycje poczatkowa komorek(0 - martwa, 1 - zywa):\n");
-        pole.arr = get_memory(pole.arr, pole.n, pole.m);
-        for (int i = 0; i < pole.n; i++) {
-            for (int j = 0; j < pole.m; j++) {
-                scanf("%d", &pole.arr[i][j]);
+        printf("enter the number of rows and columns: \n");
+        scanf("%d%d", &field.length, &field.width);
+        printf("if you want to generate a field - enter 1, if you want to enter it from the keyboard - enter 2\nenter: ");
+        scanf("%d", &operation);
+        if (operation == 1) {
+            generate(&field);
+        } else {
+            if (operation == 2) {
+                printf("enter the start position of the elements (1 - live, 0 - dead):\n");
+                field.arr = get_memory(field.arr, field.length, field.width);
+                for (int i = 0; i < field.length; i++) {
+                    for (int j = 0; j < field.width; j++) {
+                        scanf("%d", &field.arr[i][j]);
+                    }
+                }
+            } else {
+                printf("ERROR - wrong act number");
+                exit(1);
             }
         }
     } else {
         if (operation == 2) {
-            generate(&pole);
+            field.width = 0;
+            field.length = 0;
+            generate(&field);
         } else {
-            printf("ERROR - niepoprawny numer operacji");
+            printf("ERROR - wrong act number");
             exit(1);
         }
     }
-    solve(&pole);
+    solve(&field);
 }

@@ -3,12 +3,12 @@
 
 typedef struct element{
     int live;
-} elem;
+} Elem;
 
 typedef struct square{
-    int n;
-    int m;
-    elem **arr;
-} map;
+    int length;
+    int width;
+    Elem **arr;
+} Map;
 
 #endif
