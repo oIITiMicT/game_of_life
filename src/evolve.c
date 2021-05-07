@@ -5,7 +5,7 @@ int evolve(Map *cur_field) {
     new_field = get_memory(new_field, cur_field->length, cur_field->width);
     for (int i = 0; i < cur_field->length; i++) {
         for (int j = 0; j < cur_field->width; j++) {
-            int neighbors = calc_nieghbors(cur_field, i, j);
+            const int neighbors = calc_nieghbors(cur_field, i, j);
             new_field[i][j] = cur_field->arr[i][j];
             if (neighbors == 3) {
                 new_field[i][j].live = 1;
@@ -15,12 +15,13 @@ int evolve(Map *cur_field) {
             }
         }
     }
-    int check = 0; //check = 0 - nothing changed
+    
+    int check = 0;  // check = 0 - nothing changed
     // checking for changes in the field
     for (int i = 0; i < cur_field->length; i++) {
         for (int j = 0; j < cur_field->width; j++) {
             if (new_field[i][j].live != cur_field->arr[i][j].live) {
-                check = 1; //check = 1 - there were some changes on the field
+                check = 1;  // check = 1 - there were some changes on the field
                 break;
             }
         }

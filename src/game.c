@@ -26,15 +26,14 @@ void game() {
                 exit(1);
             }
         }
+    } else if (operation == 2) {
+        field.width = 0;
+        field.length = 0;
+        generate(&field);
     } else {
-        if (operation == 2) {
-            field.width = 0;
-            field.length = 0;
-            generate(&field);
-        } else {
-            printf("ERROR - wrong act number");
-            exit(1);
-        }
+        printf("ERROR - wrong act number");
+        exit(1);
     }
+
     solve(&field);
 }
